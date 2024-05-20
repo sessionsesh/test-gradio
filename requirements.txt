@@ -2,3 +2,4 @@ gradio
 networkx
 plotly
 uvicorn
+fastapi

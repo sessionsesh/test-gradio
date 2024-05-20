@@ -2,6 +2,7 @@ import gradio as gr
 import plotly.graph_objects as go
 import networkx as nx
 import random
+from fastapi import FastAPI
 
 # List of some European cities with their coordinates
 cities = [
@@ -95,4 +96,14 @@ with gr.Blocks() as demo:
 
     btn.click(plot_mst, inputs=num_cities, outputs=plot)
 
-demo.launch()
+
+app = FastAPI()
+
+
+@app.get("/")
+def read_main():
+    return {"message": "This is your main app"}
+
+
+io = gr.Interface(lambda x: "Hello, " + x + "!", "textbox", "textbox")
+app = gr.mount_gradio_app(app, io, path="/gradio")
